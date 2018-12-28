@@ -23,7 +23,9 @@ array_t *recover_content(char * const path)
     array->array = new string*;
     if (file.is_open()) {
         while (getline(file, line)) {
-            string *tmp = array->array[0];
+            string tmp[array->x];
+            for (unsigned int i = 0; i < array->x; i++)
+                tmp[i] = array->array[0][i];
             array->x++;
             delete[] array->array[0];
             array->array[0] = new string[array->x];
