@@ -40,7 +40,7 @@ array_t *recover_content(char * const path)
 
 void display(array_t *array)
 {
-    for (unsigned int i = 0; i < 5; i++)
+    for (unsigned int i = 0; i < array->x; i++)
         printf("%s\n", array->array[0][i].c_str());
 }
 
