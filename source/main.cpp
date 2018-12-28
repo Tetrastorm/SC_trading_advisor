@@ -25,6 +25,7 @@ array_t *recover_content(char * const path)
         while (getline(file, line)) {
             string *tmp = array->array[0];
             array->x++;
+            delete[] array->array[0];
             array->array[0] = new string[array->x];
             for (unsigned int i = 0; i < array->x - 1; i++)
                 array->array[0][i] = tmp[i];
@@ -54,4 +55,6 @@ int main(int ac, char **av)
     display(dataset);
 
     delete[] dataset->array[0];
+    delete[] dataset->array;
+    delete[] dataset;
 }

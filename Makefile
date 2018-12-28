@@ -27,7 +27,7 @@ TEST		=
 
 TESTOBJ		=	$(TEST:.c=.o)
 
-PARAMS		=
+PARAMS		=	./dataset/dataset.tsv
 
 CRITERION	=	--coverage -lcriterion
 
