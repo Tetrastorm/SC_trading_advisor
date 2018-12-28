@@ -5,45 +5,49 @@
 
 using namespace std;
 
-string *add_to_list(string *list, string str, unsigned int size)
-{
-    string *tmp = list;
-    list = new string[size + 1];
-    for (unsigned int i = 0; i < size; i++)
-        list[i] = tmp[i];
-    list[size] = str;
-    return (list);
-}
+typedef struct array_s {
+    unsigned int x;
+    unsigned int y;
+    string **array;
+} array_t;
 
-string *recover_content(string path)
+array_t *recover_content(char * const path)
 {
-    string *content = nullptr;
-    ifstream file(path);
+    string line;
+    array_t array = {0, 0, NULL};
+    ifstream file;
+
+    file.open(path);
+    array.array = new string*[1];
     if (file.is_open()) {
-        string line = "";
-        for (unsigned int i = 0; getline(file, line); i++)
-            content = add_to_list(content, line, i);
+        while (getline(file, line)) {
+            string *tmp = array.array[0];
+            array.x++;
+            array.array[0] = new string[array.x];
+            for (unsigned int i = 0; i < array.x - 1; i++)
+                array.array[0][i] = tmp[i];
+            array.array[0][array.x - 1] = line;
+        }
         file.close();
-        return (content);
     } else {
-        perror("Error: File can't be open\n");
+        perror("Error: File can't be open.\n");
         exit(-1);
     }
-    return (content);
+    return (&array);
 }
 
-void display_list(string * const list)
+void display(array_t *array)
 {
-    for (unsigned int i = 0; list[i] != "\0"; i++)
-        cout << list[i] << endl;
+    for (unsigned int i = 0; i < array->x; i++)
+        printf("%s\n", array->array[0][i].c_str());
 }
 
 int main(int ac, char **av)
 {
     if (ac != 2) {
-        perror("Missing argument\n");
-        exit(-1);
+        perror("Error: Programm need more argument.\n");
+        return (-1);
     }
-    string *content = recover_content(av[1]);
-    display_list(content);
+    array_t *dataset = recover_content(av[1]);
+    display(dataset);
 }
