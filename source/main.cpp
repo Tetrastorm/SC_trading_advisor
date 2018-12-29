@@ -5,6 +5,13 @@
 
 using namespace std;
 
+typedef struct ressource_s {
+    string name;
+    double profitable;
+    string sell_location;
+    string buy_location;
+} ressource_t;
+
 typedef struct array_s {
     unsigned int x;
     unsigned int y;
@@ -93,17 +100,56 @@ void display(array_t *array)
     }
 }
 
+unsigned int find_location(array_t *array, string location, bool is_buy)
+{
+    unsigned int range = 0;
+
+    while (range < array->x && location != array->array[4][range])
+        range++;
+    if (range > array->x) {
+        perror("Error: Location not found.\n");
+        exit(-1);
+    } else if (!is_buy)
+        range++;
+    return (range);
+}
+
+ressource_t *find_most_profitable(array_t *array, string buy, string sell)
+{
+    unsigned int location_a = find_location(array, buy, true);
+    unsigned int location_b = find_location(array, sell, false);
+
+    ressource_t *ressource = new ressource_t[1];
+
+    ressource->name = "";
+    ressource->profitable = 0.0;
+    ressource->sell_location = sell;
+    ressource->buy_location = buy;
+    for (unsigned int i = 7; i < array->y; i++) {
+        if (!array->array[i][location_a].empty() && !array->array[i][location_b].empty()) {
+            double profitable = atof(array->array[i][location_b].c_str()) / atof(array->array[i][location_a].c_str());
+            printf("Ressource = %s, %s: %s, %s: %s, Profitable = %f\n", array->array[i][1].c_str(), buy.c_str(), array->array[i][location_a].c_str(), sell.c_str(), array->array[i][location_b].c_str(), profitable);
+            if (profitable > 1.0 && ressource->profitable < profitable) {
+                ressource->name = array->array[i][1];
+                ressource->profitable = profitable;
+            }
+        }
+    }
+    return (ressource);
+}
+
 int main(int ac, char **av)
 {
-    if (ac != 2) {
+    if (ac != 4) {
         perror("Error: Programm need more argument.\n");
         return (-1);
     }
     array_t *dataset = make_array(av[1]);
-    display(dataset);
+    ressource_t *result = find_most_profitable(dataset, av[2], av[3]);
+    printf("Ressource: %s\nProfitable: %f\nBuy Location: %s\nSell Location: %s\n", result->name.c_str(), result->profitable, result->buy_location.c_str(), result->sell_location.c_str());
 
     for (unsigned int i = 0; i < dataset->y; i++)
-            delete[] dataset->array[i];
+        delete[] dataset->array[i];
     delete[] dataset->array;
     delete[] dataset;
 }

@@ -28,7 +28,9 @@ TEST		=
 
 TESTOBJ		=	$(TEST:.c=.o)
 
-PARAMS		=	./dataset/dataset.tsv
+PARAMS		=	./dataset/dataset.tsv 		\
+				'Port Olisar'				\
+				'GrimHEX'
 
 CRITERION	=	--coverage -lcriterion
 
