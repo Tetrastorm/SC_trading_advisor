@@ -93,7 +93,7 @@ void display(array_t *array)
 {
     for (unsigned int y = 0; y < array->y; y++) {
         for (unsigned int x = 0; x < array->x; x++)
-            printf("%s", array->array[y][x].c_str());
+            printf("%s ", array->array[y][x].c_str());
         printf("\n");
     }
 }
