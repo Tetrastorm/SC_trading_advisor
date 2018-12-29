@@ -12,7 +12,7 @@ CFLAG		=	-Wall							\
 
 VGFLAG		=	--track-origins=yes				\
 				--leak-check=full				\
-				--log-file="vg_log"
+				--log-file="./log/vg.log"
 
 SRCPATH		=	./source
 
