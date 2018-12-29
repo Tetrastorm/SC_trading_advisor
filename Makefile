@@ -11,7 +11,8 @@ CFLAG		=	-Wall							\
 				-Wextra
 
 VGFLAG		=	--track-origins=yes				\
-				--leak-check=full
+				--leak-check=full				\
+				--log-file="vg_log"
 
 SRCPATH		=	./source
 
