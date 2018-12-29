@@ -52,6 +52,7 @@ array_t *format_data(array_t *tmp)
         char const * str = tmp->array[0][y].c_str();
         unsigned int box = 0;
         string tmp_str = "";
+        result->array[y] = new string[1];
         for (unsigned int i = 0; str[i] != '\0'; i++) {
             if (str[i] == '\t') {
                 string *tmp_list = new string[box];
@@ -64,6 +65,7 @@ array_t *format_data(array_t *tmp)
                     result->array[y][x] = tmp_list[x];
                 result->array[y][box - 1] = tmp_str;
                 tmp_str = "";
+                delete[] tmp_list;
             } else {
                 tmp_str += str[i];
             }
@@ -74,13 +76,6 @@ array_t *format_data(array_t *tmp)
     delete[] tmp->array;
     delete[] tmp;
     return (result);
-}
-
-void display_debug(array_t *array)
-{
-    for (unsigned int x = 0; x < array->x; x++)
-        printf("%s\n", array->array[0][x].c_str());
-    printf("\nEND\n");
 }
 
 array_t *make_array(char * const path)
@@ -106,4 +101,9 @@ int main(int ac, char **av)
     }
     array_t *dataset = make_array(av[1]);
     display(dataset);
+
+    for (unsigned int i = 0; i < dataset->y; i++)
+            delete[] dataset->array[i];
+    delete[] dataset->array;
+    delete[] dataset;
 }
