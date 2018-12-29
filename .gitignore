@@ -1,0 +1,22 @@
+# Visual Studio Files
+
+*.vs
+*.vscode
+
+# Binaries Files
+
+SC_trading_advisor
+unit_tests
+*.out
+*.a
+
+# Debug file
+
+log
+vgcore.*
+
+# Temp Files
+
+*.o
+*#
+*~
