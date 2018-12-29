@@ -1,0 +1,56 @@
+==17951== Memcheck, a memory error detector
+==17951== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==17951== Using Valgrind-3.14.0 and LibVEX; rerun with -h for copyright info
+==17951== Command: ./SC_trading_advisor ./dataset/dataset.tsv
+==17951== Parent PID: 17945
+==17951== 
+==17951== Conditional jump or move depends on uninitialised value(s)
+==17951==    at 0x401345: recover_content(char*) (main.cpp:30)
+==17951==    by 0x401B58: make_array(char*) (main.cpp:83)
+==17951==    by 0x401C2A: main (main.cpp:102)
+==17951==  Uninitialised value was created by a heap allocation
+==17951==    at 0x4C2F4B6: operator new(unsigned long) (vg_replace_malloc.c:344)
+==17951==    by 0x4011EA: recover_content(char*) (main.cpp:23)
+==17951==    by 0x401B58: make_array(char*) (main.cpp:83)
+==17951==    by 0x401C2A: main (main.cpp:102)
+==17951== 
+==17951== Mismatched free() / delete / delete []
+==17951==    at 0x4C30BF6: operator delete[](void*) (vg_replace_malloc.c:651)
+==17951==    by 0x401AE2: format_data(array_s*) (main.cpp:76)
+==17951==    by 0x401B68: make_array(char*) (main.cpp:84)
+==17951==    by 0x401C2A: main (main.cpp:102)
+==17951==  Address 0x5b4cf80 is 0 bytes inside a block of size 8 alloc'd
+==17951==    at 0x4C2F4B6: operator new(unsigned long) (vg_replace_malloc.c:344)
+==17951==    by 0x4011EA: recover_content(char*) (main.cpp:23)
+==17951==    by 0x401B58: make_array(char*) (main.cpp:83)
+==17951==    by 0x401C2A: main (main.cpp:102)
+==17951== 
+==17951== Mismatched free() / delete / delete []
+==17951==    at 0x4C30BF6: operator delete[](void*) (vg_replace_malloc.c:651)
+==17951==    by 0x401AFB: format_data(array_s*) (main.cpp:77)
+==17951==    by 0x401B68: make_array(char*) (main.cpp:84)
+==17951==    by 0x401C2A: main (main.cpp:102)
+==17951==  Address 0x5b4ac80 is 0 bytes inside a block of size 16 alloc'd
+==17951==    at 0x4C2F4B6: operator new(unsigned long) (vg_replace_malloc.c:344)
+==17951==    by 0x401196: recover_content(char*) (main.cpp:17)
+==17951==    by 0x401B58: make_array(char*) (main.cpp:83)
+==17951==    by 0x401C2A: main (main.cpp:102)
+==17951== 
+==17951== Mismatched free() / delete / delete []
+==17951==    at 0x4C30BF6: operator delete[](void*) (vg_replace_malloc.c:651)
+==17951==    by 0x401D51: main (main.cpp:108)
+==17951==  Address 0x5b97890 is 0 bytes inside a block of size 16 alloc'd
+==17951==    at 0x4C2F4B6: operator new(unsigned long) (vg_replace_malloc.c:344)
+==17951==    by 0x4015B3: format_data(array_s*) (main.cpp:46)
+==17951==    by 0x401B68: make_array(char*) (main.cpp:84)
+==17951==    by 0x401C2A: main (main.cpp:102)
+==17951== 
+==17951== 
+==17951== HEAP SUMMARY:
+==17951==     in use at exit: 0 bytes in 0 blocks
+==17951==   total heap usage: 8,375 allocs, 8,375 frees, 7,639,718 bytes allocated
+==17951== 
+==17951== All heap blocks were freed -- no leaks are possible
+==17951== 
+==17951== For counts of detected and suppressed errors, rerun with: -v
+==17951== ERROR SUMMARY: 4 errors from 4 contexts (suppressed: 0 from 0)

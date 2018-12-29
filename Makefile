@@ -4,23 +4,24 @@ CFLAG		=	-Wall							\
 				-Wextra
 
 VGFLAG		=	--track-origins=yes				\
-				--leak-check=full
+				--leak-check=full				\
+				--log-file="vg_log"
 
 SRCPATH		=	./source
 
 MAIN		=	$(SRCPATH)/main.cpp
 
-SRC			=	
+SRC			=
 
 SRCOBJ		=	$(SRC:.c=.o)
 
 TESTPATH	=	./tests
 
-TEST		=	
+TEST		=
 
 TESTOBJ		=	$(TEST:.c=.o)
 
-PARAMS		=	test.txt
+PARAMS		=	./dataset/dataset.tsv
 
 CRITERION	=	--coverage -lcriterion
 
