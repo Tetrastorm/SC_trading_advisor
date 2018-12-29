@@ -8,6 +8,7 @@ using namespace std;
 typedef struct ressource_s {
     string name;
     double profitable;
+    double cost;
     string sell_location;
     string buy_location;
 } ressource_t;
@@ -125,11 +126,13 @@ ressource_t *find_most_profitable(array_t *array, string buy, string sell)
     ressource->profitable = 0.0;
     ressource->sell_location = sell;
     ressource->buy_location = buy;
+    ressource->cost = 0.0f;
     for (unsigned int i = 7; i < array->y; i++) {
         if (!array->array[i][location_a].empty() && !array->array[i][location_b].empty()) {
             double profitable = atof(array->array[i][location_b].c_str()) / atof(array->array[i][location_a].c_str());
             printf("Ressource = %s, %s: %s, %s: %s, Profitable = %f\n", array->array[i][1].c_str(), buy.c_str(), array->array[i][location_a].c_str(), sell.c_str(), array->array[i][location_b].c_str(), profitable);
             if (profitable > 1.0 && ressource->profitable < profitable) {
+                ressource->cost = atof(array->array[i][location_a].c_str());
                 ressource->name = array->array[i][1];
                 ressource->profitable = profitable;
             }
@@ -147,9 +150,9 @@ int main(int ac, char **av)
     array_t *dataset = make_array(av[1]);
     ressource_t *result = find_most_profitable(dataset, av[2], av[3]);
     if (result->name.empty())
-        printf("\nNo ressource profitable found.\n");
+        printf("\nNo ressource profitable found.\n\n");
     else
-        printf("\nRessource: %s\nProfitable: %f\nBuy Location: %s\nSell Location: %s\n\n", result->name.c_str(), result->profitable, result->buy_location.c_str(), result->sell_location.c_str());
+        printf("\nRessource: %s\nCost: %g UEC\nProfitable: %f\nBuy Location: %s\nSell Location: %s\n\n", result->name.c_str(), result->cost, result->profitable, result->buy_location.c_str(), result->sell_location.c_str());
 
     for (unsigned int i = 0; i < dataset->y; i++)
         delete[] dataset->array[i];
