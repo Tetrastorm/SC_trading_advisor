@@ -12,7 +12,7 @@ unit_tests
 
 # Debug file
 
-*.log
+log
 vgcore.*
 
 # Temp Files
