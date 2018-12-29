@@ -146,7 +146,10 @@ int main(int ac, char **av)
     }
     array_t *dataset = make_array(av[1]);
     ressource_t *result = find_most_profitable(dataset, av[2], av[3]);
-    printf("Ressource: %s\nProfitable: %f\nBuy Location: %s\nSell Location: %s\n", result->name.c_str(), result->profitable, result->buy_location.c_str(), result->sell_location.c_str());
+    if (result->name.empty())
+        printf("\nNo ressource profitable found.\n");
+    else
+        printf("\nRessource: %s\nProfitable: %f\nBuy Location: %s\nSell Location: %s\n\n", result->name.c_str(), result->profitable, result->buy_location.c_str(), result->sell_location.c_str());
 
     for (unsigned int i = 0; i < dataset->y; i++)
         delete[] dataset->array[i];
